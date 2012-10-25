@@ -1,9 +1,13 @@
-# angular-grunt-coffeescript - Seed project for large CoffeeScript [AngularJS](http://angularjs.org/) projects
+# angular-grunt-coffeescript - Seed project for large CoffeeScript AngularJS projects
 
 ## Motivation
 
-* I needed a seed project so that I could get a real AngularJS application up and running quickly, with all the fixin's
+* I needed a seed project so that I could get a real [AngularJS](http://angularjs.org/) application up and running quickly, with all the fixin's
 * I wanted to share some conventions that have worked well for a large CoffeeScript AngularJS project
+
+### But I code in Javascript!
+
+All of the conventions and lessons-learned demonstratred here can be applied to a Javascript-based project.  
 
 ## Features
 
@@ -14,7 +18,7 @@
     * A minified and concatenated distribution
 * Incorporates most major aspects of AngularJS
     * Modules, directives, views, services, controllers, filters, dependency injection, etc.
-* Demonstrates 3rd party library integration ([jQueryUI](http://jqueryui.com/) and a 'global' library, in this case [toastr](http://codeseven.github.com/toastr/)).
+* Demonstrates 3rd party library integration ([jQueryUI](http://jqueryui.com/) and a 'global' library wrapped in a module, in this case [toastr](http://codeseven.github.com/toastr/)).
 * Opinionated conventions for:
     * naming Modules and Providers
     * sharing services, directives, filters across views

@@ -9,5 +9,7 @@ angular.module(name,[]).directive('uiTooltip', [
 	'$log'
 	($log)->
 		(scope, element, attrs) ->
-			$(element).tooltip()
+			$(element).tooltip
+				#ideally this is configurable
+				track: true
 	])
