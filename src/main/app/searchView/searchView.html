@@ -1,0 +1,15 @@
+<div ng-controller='searchView.searchViewCtrl'>
+
+	<div class="grid_6">
+		<input ng-model="search"></input>
+
+		<ul>
+			<li glow-green-on-mouseover ng-click="loadDetails(person.id)" ng-repeat="person in people | filter:search">
+				{{person.firstName | mattizer }} {{person.lastName}}
+			</li>
+		</ul>
+	</div>
+	<div class="grid_6">
+		<img ui-tooltip title="What're you lookin' at?" src="searchView/mGlass.jpg">
+	</div>
+</div>
