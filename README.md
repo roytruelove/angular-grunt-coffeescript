@@ -69,7 +69,7 @@ The key, then, becomes the naming convention we use for both our modules and the
 
 1. Ensure that you have [node](http://nodejs.org/), [npm](https://npmjs.org/), and [grunt](http://gruntjs.com/) installed and in your path
 1. Clone this repository
-1. Run `npm install` to pull down all dependencies
+1. Run `npm install` to pull down all build-time dependencies
 
 ### Start server and watch for changes
 

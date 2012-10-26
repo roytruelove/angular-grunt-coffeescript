@@ -19,6 +19,12 @@ module.exports = (grunt)->
    SRC_LIB_CSS = "#{SRC_LIB_ROOT}/**/*.css"
    SRC_LIB_JS = "#{SRC_LIB_ROOT}/**/*.js"
 
+   # Test files
+   TEST_ROOT = "src/test/"
+   TEST_LIB = "#{TEST_ROOT}/lib/**/*.*"
+   TEST_CONFIG = "#{TEST_ROOT}/config/**/*.*"
+   TEST_COFFEE = "#{TEST_ROOT}/**/*.coffee"
+
    ###############################################################
    # Config
    ###############################################################
@@ -36,6 +42,20 @@ module.exports = (grunt)->
             files:
                "target/main/index.html": SRC_INDEX
                "target/main/": [SRC_HTML, SRC_IMG]
+         test:
+            options:
+               basePath: TEST_ROOT
+            files:
+               "target/test/": [TEST_LIB, TEST_CONFIG]
+
+      testacularServer:
+         watched:
+            configFile: 'target/test/config/watchedUnitTests.js'
+
+      testacularRun:
+         watched:
+            configFile: 'target/test/config/watchedUnitTests.js'
+
       concat:
          lib_css: 
             src: SRC_LIB_CSS
@@ -63,20 +83,27 @@ module.exports = (grunt)->
             src: "target/main/style/app.css"
             dest: "target/main/style/app.css"
 
-
       coffee:
          app:
             files:
                'target/main/js/app.js': SRC_COFFEE
+         test:
+            files:
+               'target/test/js/specs.js': TEST_COFFEE
 
       server:
          base: 'target/main'
 
-      # Note that we don't watch libraries.  Restart the watcher for that
+      # Note that we only watch: HTML, CSS, Images, App and Test CoffeeScript
+      # For all else (libs, test configs, etc), restart the build
       watch:
-         coffee:
+         coffee_app:
             files: SRC_COFFEE
             tasks: 'coffee:app'
+
+         coffee_tests:
+            files: TEST_COFFEE
+            tasks: 'coffee:test'
 
          copy_static:
             files: [SRC_HTML, SRC_INDEX, SRC_IMG]
@@ -86,6 +113,10 @@ module.exports = (grunt)->
             files: [SRC_CSS]
             tasks: ['concat:app_css']
 
+         test:
+            files: [SRC_COFFEE, TEST_COFFEE]
+            tasks: ['testacularRun:watched']
+
    ##############################################################
    # Dependencies
    ###############################################################
@@ -93,11 +124,15 @@ module.exports = (grunt)->
    grunt.loadNpmTasks('grunt-contrib-copy')
    grunt.loadNpmTasks('grunt-contrib-clean')
    grunt.loadNpmTasks('grunt-css')
+   grunt.loadNpmTasks('grunt-testacular')
+   #grunt.loadTasks('../grunt-testacular/tasks')
 
    ###############################################################
    # Alias tasks
    ###############################################################
 
    grunt.registerTask('build', 'copy concat coffee')
+   grunt.registerTask('watcher', 'server testacularServer:watched watch')
    grunt.registerTask('dist', 'build min cssmin')
-   grunt.registerTask('default', 'clean build server watch')
+
+   grunt.registerTask('default', 'clean build watcher')
