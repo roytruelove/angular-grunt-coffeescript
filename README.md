@@ -63,6 +63,11 @@ The key, then, becomes the naming convention we use for both our modules and the
 
  Having one module per provider makes wiring easy - We just list all of our modules in `app.coffee`.
 
+### Misc Conventions
+
+* Never use a global function for a controller, always a module
+* Always use the 'array' format for dependency injection
+
 ## Building and Running
 
 ### Initial setup
@@ -98,7 +103,7 @@ When you run the default Grunt task, you will see this output in your project's 
 
 ## TODOs
 
- - Tests
+ - End-to-end test and further test coverage
  - Move the hardcoded data to `$httpBackend`
  - Create a grunt init template
 
