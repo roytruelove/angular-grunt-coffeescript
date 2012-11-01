@@ -1,10 +1,13 @@
 {
-    "author": "RT",
-    "name": "angular-seed-grunt",
-    "version": "0.0.1-SNAPSHOT",
+    "name": "angular-grunt-coffeescript",
+    "author": "Roy Truelove <roytruelove@gmail.com>",
+    "description": "Seed project for large angularJs / grunt / coffeescrpt projects",
+    "bugs" : {
+        "url": "https://github.com/roytruelove/angular-grunt-coffeescript/issues"
+    },
     "repository": {
         "type": "git",
-        "url": "none yet"
+        "url": "git://github.com/roytruelove/angular-grunt-coffeescript.git"
     },
     "engines": {
         "node": ">= 0.8.4"
@@ -12,7 +15,6 @@
     "dependencies": {
     },
     "devDependencies": {
-        "testacular": "0.2.0",
         "grunt": "0.3.15",
         "coffee-script": "1.3.3",
         "grunt-contrib-clean":">=0.2.0",
@@ -20,5 +22,6 @@
         "grunt-contrib-copy":">=0.3.1",
         "grunt-css":">=0.3.2",
         "grunt-testacular":">=0.2.0"
-    }
+    },
+    "version": "0.1.0"
 }

@@ -1,4 +1,5 @@
-# angular-grunt-coffeescript - Seed project for large CoffeeScript AngularJS projects
+# angular-grunt-coffeescript
+# A Seed project for large CoffeeScript AngularJS projects
 
 ## Motivation
 

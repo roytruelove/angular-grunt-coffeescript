@@ -125,7 +125,6 @@ module.exports = (grunt)->
    grunt.loadNpmTasks('grunt-contrib-clean')
    grunt.loadNpmTasks('grunt-css')
    grunt.loadNpmTasks('grunt-testacular')
-   #grunt.loadTasks('../grunt-testacular/tasks')
 
    ###############################################################
    # Alias tasks

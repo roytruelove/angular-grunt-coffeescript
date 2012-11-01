@@ -1,4 +1,3 @@
-# This is a somewhat contrived example, but hey.
 name = 'common.directives.glowGreenOnMouseoverDirective'
  
 # Note that for directives I keep the name SHORT
