@@ -11,11 +11,11 @@ mods = [
 	'common.services.toastrWrapperSvc'
 
 	'detailsView.detailsViewCtrl'
-	'detailsView.mattizerFilter'
 	'detailsView.personDetailsDirective'
 
 	'index.indexCtrl'
 
+	'searchView.mattizerFilter'
 	'searchView.searchViewCtrl'
 ]
 
