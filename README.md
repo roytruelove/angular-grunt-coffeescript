@@ -18,6 +18,7 @@ All of the conventions and lessons-learned demonstratred here can be applied to 
     * A minified and concatenated distribution
 * Incorporates most major aspects of AngularJS
     * Modules, directives, views, services, controllers, filters, dependency injection, etc.
+    * Automated unit testing with Testacular
 * Demonstrates 3rd party library integration ([jQueryUI](http://jqueryui.com/) and a 'global' library wrapped in a module, in this case [toastr](http://codeseven.github.com/toastr/)).
 * Opinionated conventions for:
     * naming Modules and Providers
@@ -38,7 +39,9 @@ All of these are demonstrated in the example code.
         lib/             # all 3rd party code
           ...            # a directory per 3rd party lib
       test/              # all test files and code
-        TODO             # TODO incorporate Testacular into build
+        config           # testacular configs
+        lib              # test-time libraries
+        ...              # directory per package, generally with a Spec file per package
 
 #### Packages
 
@@ -78,7 +81,11 @@ The key, then, becomes the naming convention we use for both our modules and the
 
 ### Start server and watch for changes
 
-This is the default grunt task.  To run the default grunt task, run `grunt --config grunt.coffee`.  Point the browser to `http://localhost:8000`
+The default grunt task will start the server and watch for changes.  When changes are made the project is rebuilt, pushed to the server, and all unit tests are run through Testacular.
+
+* To run the default grunt task, run `grunt --config grunt.coffee`
+* Point the browser to `http://localhost:9876` to connect the Testacular server
+* Point another browser window to `http://localhost:8000` to view the app
 
 ### Distribution Build
 
@@ -98,13 +105,13 @@ When you run the default Grunt task, you will see this output in your project's 
           app.css        # all of your application's css, concatenated
           lib.css        # all 3rd party library css, concatenated
         ...              # a directory per 'package', with all the static files (html, imgs, etc)
-      test/              # all test files and code
-        TODO             # TODO incorporate Testacular into build.  Doesn't exist yet!
+      test/              # all tests
 
 ## TODOs
 
  - End-to-end test and further test coverage
  - Move the hardcoded data to `$httpBackend`
+ - Travis DI integration
  - Create a grunt init template
 
 ## Thanks
