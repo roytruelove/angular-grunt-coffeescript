@@ -11,7 +11,11 @@ angular.module(name, []).controller(name, [
 		$scope.people = data.getPeople()
 
 		$scope.loadDetails = (personId) ->
+
+			if (personId == 6)
+				tstr.error("Hannah always throws this error just to show toastr integration.", "Fake Error!")
+				return
+
 			person = data.getPerson(personId)
-			tstr.info("You've selected '#{person.firstName} #{person.lastName}'")
 			$location.path("details/#{personId}")
 	])
