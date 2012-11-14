@@ -4,6 +4,8 @@ module.exports = (grunt)->
    # Constants
    ###############################################################
 
+   ENV = grunt.option('env') || 'dev'
+
    # Application src
    SRC_ROOT= 'src/main/'
    SRC_APP_ROOT= "#{SRC_ROOT}/app/"
@@ -46,7 +48,7 @@ module.exports = (grunt)->
             options:
                basePath: TEST_ROOT
             files:
-               "target/test/": [TEST_LIB, TEST_CONFIG]
+               "target/test/": [TEST_LIB, TEST_CONFIG, ENV]
 
       testacularServer:
          watched:
