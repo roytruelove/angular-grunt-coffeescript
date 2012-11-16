@@ -1,4 +1,4 @@
-basePath = '../../../target/';
+basePath = '../../../../target/build';
 
 files = [
   JASMINE,

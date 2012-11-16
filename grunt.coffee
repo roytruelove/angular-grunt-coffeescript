@@ -28,33 +28,6 @@ module.exports = (grunt)->
 
    grunt.initConfig
 
-      # Constants must go here so that they can be accessed by grunt
-      # templating
-      constants:
-
-         MAIN_DIR: 'src/main/'
-
-         # build
-         TARGET_DIR: 'target/'
-         STAGE_DIR: '<%= constants.TARGET_DIR %>/stage/'
-         BUILD_DIR: '<%= constants.TARGET_DIR %>/build/'
-         MAIN_BUILD_DIR: '<%= constants.BUILD_DIR %>/main/'
-         TEST_BUILD_DIR: '<%= constants.BUILD_DIR %>/test/'
-
-         # Environment specific
-         ENV_DIR: "src/env/#{ENV}"
-
-         #main
-         MAIN_APP_DIR: '<%= constants.STAGE_DIR %>/app/'
-         #MAIN_LIB_DIR: '<%= constants.STAGE_DIR %>/lib/'
-         MAIN_INDEX: '<%= constants.STAGE_DIR %>/index.html'
-
-         # Test files
-         TEST_DIR: 'src/test/'
-         TEST_LIB: '<%= constants.TEST_DIR %>/lib/**/*.*'
-         TEST_CONFIG: '<%= constants.TEST_DIR %>/config/**/*.*'
-         #TEST_COFFEE = "#{TEST_ROOT}/**/*.coffee"
-
       clean:
          main: 'target'
 
@@ -103,15 +76,13 @@ module.exports = (grunt)->
                   'src/test/config/**'
                ]
 
-      #TODO
       testacularServer:
-         watched:
-            configFile: '<%=TEST_BUILD_DIR%>/config/watchedUnitTests.js'
+         unit:
+            configFile: 'target/build/test/config/unitTests.js'
 
-      #TODO
       testacularRun:
-         watched:
-            configFile: '<%=TEST_BUILD_DIR%>/config/watchedUnitTests.js'
+         unit:
+            configFile: 'target/build/test/config/unitTests.js'
 
       concat:
          lib_css: 
@@ -146,36 +117,18 @@ module.exports = (grunt)->
                'target/build/main/js/app.js': 'target/stage/app/**/*.coffee'
          test:
             files:
-               'target/build/test/js/specs.js': 'target/stage/test/**/*.coffee'
+               'target/build/test/js/specs.js': 'src/test/**/*.coffee'
 
       server:
          base: 'target/build/main'
 
-      # Note that we only watch: HTML, CSS, Images, App and Test CoffeeScript
-      # For all else (libs, test configs, etc), restart the build
-      ###
+      # Currently runs the entire build.  If this gets too big, look at breaking
+      # it apart by files
       watch:
-         coffee_app:
-            files: SRC_COFFEE
-            tasks: 'coffee:app'
+         buildAndTest: 
+            files: 'src/**/*.*'
+            tasks: 'build testacularRun:unit'
 
-         coffee_tests:
-            files: TEST_COFFEE
-            tasks: 'coffee:test'
-
-         copy_static:
-            files: [SRC_HTML, SRC_INDEX, SRC_IMG]
-            tasks: 'copy:app_static'
-
-         concat_css:
-            files: [SRC_CSS]
-            tasks: ['concat:app_css']
-
-         test:
-            files: [SRC_COFFEE, TEST_COFFEE]
-            tasks: ['testacularRun:watched']
-      ###
-      watch: {}
 
    ##############################################################
    # Dependencies
@@ -191,7 +144,7 @@ module.exports = (grunt)->
    ###############################################################
 
    grunt.registerTask('build', 'copy concat coffee')
-   grunt.registerTask('watcher', 'server testacularServer:watched watch')
+   grunt.registerTask('watcher', 'server testacularServer:unit watch')
    grunt.registerTask('dist', 'build min cssmin')
 
    grunt.registerTask('default', 'clean build watcher')
