@@ -8,7 +8,8 @@ angular.module(name, []).controller(name, [
 	'common.services.toastrWrapperSvc'
 	($scope, $log, $location, data, tstr) ->
 
-		$scope.people = data.getPeople()
+		data.getPeople().then (resp)->
+			$scope.people = resp.data
 
 		$scope.loadDetails = (personId) ->
 
@@ -16,6 +17,5 @@ angular.module(name, []).controller(name, [
 				tstr.error("Hannah always throws this error just to show toastr integration.", "Fake Error!")
 				return
 
-			person = data.getPerson(personId)
 			$location.path("details/#{personId}")
 	])

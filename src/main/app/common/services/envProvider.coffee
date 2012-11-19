@@ -1,13 +1,9 @@
 ###
-Example of a service shared across views.
-Wrapper around the data layer for the app.  Hardcoded for testing purposes.
+Should be overwritten by the env specific versin
 ###
 providerName = 'common.services.env' # angular adds the 'Provider' suffix for us.
 modName = "#{providerName}Provider"
 
-class envProvider
-
-	$get: ()->
-		'gotEnv'
-
-angular.module(modName, []).provider(providerName, new envProvider())
+angular.module(modName, []).provider(providerName, ()->
+	throw "Expecting this module to be overridden by an env specific version"
+)

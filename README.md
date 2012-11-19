@@ -21,6 +21,7 @@ All of the conventions and lessons-learned demonstratred here can be applied to 
     * Modules, directives, views, services, controllers, filters, dependency injection, etc.
     * Automated unit testing with Testacular
 * Demonstrates 3rd party library integration ([jQueryUI](http://jqueryui.com/) and a 'global' library wrapped in a module, in this case [toastr](http://codeseven.github.com/toastr/)).
+# Ability to customize the app for each environment (dev, qa, prod, etc.)
 * Opinionated conventions for:
     * naming Modules and Providers
     * sharing services, directives, filters across views
@@ -43,11 +44,16 @@ All of these are demonstrated in the example code.
         config           # testacular configs
         lib              # test-time libraries
         ...              # directory per package, generally with a Spec file per package
+      env/               # environment-specific overrides.  See 'Enviroment Specific Builds'
+        prod             # overrides for prod env
+          ...
+        dev              # overrides for dev env, the default
+          ...
 
 #### Packages
 
 A 'package' is a loose term I'm using for a grouping of related artifacts.  Best explained by example:
-
+o
 * All files for the app's 'details view' will go into the detailsView directory.  None of the files in this directory will be used outside of this view
 * 'Common' code that's shared between views are grouped under the 'common' directory
 
@@ -59,7 +65,7 @@ The structure you use for these groupings is up to you, but I've found that the 
 
 The key, then, becomes the naming convention we use for both our modules and the 'providers' (eg values, factories, directives, filters).
 
- - We use one module per Provider.  We don't group providers together (I don't see the benefit).
+ - We use one module per provider.  We don't group providers together (I don't see the benefit).
  - Module name matches the name and path of the file in which it's defined.  So the module for the app's common Data service would be `common.services.dataSvc`
  - Provider name depends on the type of provider.
      - For *values* and *factories*, which are generally used to provide Controllers, Services, and wrappers around 3rd parties libs, the *name of my provider is the exact same name as the module*.
@@ -96,7 +102,7 @@ A distribution build minifies your js and css.  Run `grunt --config grunt.coffee
 
 When you run the default Grunt task, you will see this output in your project's directory.  `target/main` is what is served to the browser.
 
-    target/             
+    target/build
       main/              # all application files and code
         index.html       # your old friend index.html
         js/
@@ -108,12 +114,33 @@ When you run the default Grunt task, you will see this output in your project's 
         ...              # a directory per 'package', with all the static files (html, imgs, etc)
       test/              # all tests
 
+## Environment Specfic Builds
+
+Under `src/env` is a directory per environment (currently dev and prod, but add as many as you need).  During the build, these directories are overlayed directly on top of the main code, overriding anything that may be there.  By default the build will use the 'dev' environment.
+
+### envProvider
+
+The `common.services.envProvider` module is where most of the environment-specific aspects of your application will be defined.  At the very least each environment must provide an instance of this module.  The module is responsible for:
+
+* Defining the `common.services.envProvider` provider.  This provider can optionally have an `appConfig` function, which is run in the *config block of the application module*.  Since it is a provider it must have a $get function which defines how to instaniate the `common.services.env` service.
+* Defining the `common.services.env` service.  This service will generally store any environment-specific data, and optionally an `appRun` function, which is run in the *run block of the application module*.
+
+If you take a look at the prod module, you'll see that the provider simply instantiates the service, and the service provides the production URL. 
+
+The dev module, however, uses [$httpBackend](http://docs.angularjs.org/api/ngMockE2E.$httpBackend) to act as a fake server.  Since $httpBackend is set up in a run block, we put the setup code in the `appRun` function.
+
+Having the ability to run custom code in the application module's config and run blocks as wel as having an injectable service that abstracts away all environment specific aspect of your application gives the options to set up your application's enviroments in whatever ways you need.
+
+To run an enviroment specific build, add an `env` flag to your command line as follows:
+
+    grunt --env prod --config grunt.coffee
+
 ## TODOs
 
  - End-to-end test and further test coverage
- - Move the hardcoded data to `$httpBackend`
  - Travis DI integration
  - Create a grunt init template
+ - Generic error handling for http errors
 
 ## Thanks
 

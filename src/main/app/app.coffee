@@ -8,8 +8,7 @@ mods = [
 	'common.directives.uiTooltipDirective'
 	'common.filters.toLowerFilter'
 	'common.services.dataSvc'
-	'common.services.decoratorTestSvc'  # TODO testing only
-	'common.services.envProvider'		# TODO testing only
+	'common.services.envProvider'
 	'common.services.toastrWrapperSvc'
 
 	'detailsView.detailsViewCtrl'
@@ -39,21 +38,22 @@ routesConfigFn = ($routeProvider)->
 ### ###########################################################################
 	
 m = angular.module('app', mods)
+
 m.config ['$routeProvider', routesConfigFn]
-m.config (['$provide', 'common.services.envProvider', ($provide, envProvider)->
-	console.log "Configing:"
-	console.log envProvider.$get()
-	$provide.decorator('common.services.decoratorTestSvc', ($delegate)->
-		###
-		$delegate.getSomeData = ()-> 
-			"Decorated data"
-		###
-		console.log "decorating"
-		return $delegate
-	)
+
+m.config (['common.services.envProvider', (envProvider)->
+
+	# Allows the environment provider to run whatever config block it wants.
+	if envProvider.appConfig?
+		envProvider.appConfig()
 ])
-m.run ()->
-	console.log "Running"
+
+m.run (['common.services.env', (env)->
+
+	# Allows the environment service to run whatever app run block it wants.
+	if env.appRun?
+		env.appRun()
+])
 
 angular.element(document).ready ()->
 	angular.bootstrap(document,['app'])

@@ -8,6 +8,7 @@ angular.module(name, []).controller(name, [
 	($scope, $log, $routeParams, data) ->
 
 		personId = parseInt($routeParams.id)
-		$scope.person = data.getPerson(personId)
-		
+
+		data.getPerson(personId).then (resp)->
+			$scope.person = resp.data
 	])

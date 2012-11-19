@@ -15,6 +15,7 @@ describe "Details View", () ->
 
 					scope = $rootScope.$new
 
+					# instantiates the controller, which sets the scope
 					ctrl = $controller 'detailsView.detailsViewCtrl',
 						'$scope': scope
 						'$log': $log
@@ -32,6 +33,10 @@ describe "Details View", () ->
 
 			dataStub = jasmine.createSpy('dataStub')
 			dataStub.getPerson = (id) ->
+				{
+					then: (fn)->
+				}
+
 				"Fake person ##{id}"
 
 			scope = populateScope(routeParamsStub, dataStub)
