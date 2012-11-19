@@ -129,7 +129,7 @@ If you take a look at the prod module, you'll see that the provider simply insta
 
 The dev module, however, uses [$httpBackend](http://docs.angularjs.org/api/ngMockE2E.$httpBackend) to act as a fake server.  Since $httpBackend is set up in a run block, we put the setup code in the `appRun` function.
 
-Having the ability to run custom code in the application module's config and run blocks as wel as having an injectable service that abstracts away all environment specific aspect of your application gives the options to set up your application's enviroments in whatever ways you need.
+Having the ability to run custom code in the application module's config and run blocks as well as having an injectable service that abstracts away all environment specific aspects of your application gives you the option to set up your application's enviroments in whatever ways you need.
 
 To run an enviroment specific build, add an `env` flag to your command line as follows:
 
