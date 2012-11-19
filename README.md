@@ -26,6 +26,38 @@ All of the conventions and lessons-learned demonstratred here can be applied to 
     * naming Modules and Providers
     * sharing services, directives, filters across views
 
+## Building and Running
+
+### Initial setup
+
+1. Ensure that you have [node](http://nodejs.org/), [npm](https://npmjs.org/), and [grunt](http://gruntjs.com/) installed and in your path
+1. Clone this repository
+1. Run `npm install` to pull down all build-time dependencies
+
+### Start server and watch for changes
+
+The default grunt task will start the server and watch for changes.  When changes are made the project is rebuilt, pushed to the server, and all unit tests are run through Testacular.
+
+* To run the default grunt task, run `grunt --config grunt.coffee`
+* Point the browser to `http://localhost:9876` to connect the Testacular server
+* Point another browser window to `http://localhost:8000` to view the app
+
+## Build Output
+
+When you run the default Grunt task, you will see this output in your project's directory.  `target/build/main` is served by the webserver.
+
+    target/build
+      main/              # all application files and code
+        index.html       # your old friend index.html
+        js/
+          app.js         # all of your application's code, concatenated
+          lib.js         # all 3rd party library code, concatenated
+        style/
+          app.css        # all of your application's css, concatenated
+          lib.css        # all 3rd party library css, concatenated
+        ...              # a directory per 'package', with all the static files (html, imgs, etc)
+      test/              # all tests
+
 ## Conventions
 
 All of these are demonstrated in the example code.
@@ -78,42 +110,6 @@ The key, then, becomes the naming convention we use for both our modules and the
 * Never use a global function for a controller, always a module
 * Always use the 'array' format for dependency injection
 
-## Building and Running
-
-### Initial setup
-
-1. Ensure that you have [node](http://nodejs.org/), [npm](https://npmjs.org/), and [grunt](http://gruntjs.com/) installed and in your path
-1. Clone this repository
-1. Run `npm install` to pull down all build-time dependencies
-
-### Start server and watch for changes
-
-The default grunt task will start the server and watch for changes.  When changes are made the project is rebuilt, pushed to the server, and all unit tests are run through Testacular.
-
-* To run the default grunt task, run `grunt --config grunt.coffee`
-* Point the browser to `http://localhost:9876` to connect the Testacular server
-* Point another browser window to `http://localhost:8000` to view the app
-
-### Distribution Build
-
-A distribution build minifies your js and css.  Run `grunt --config grunt.coffee dist`
-
-## Build Output
-
-When you run the default Grunt task, you will see this output in your project's directory.  `target/main` is what is served to the browser.
-
-    target/build
-      main/              # all application files and code
-        index.html       # your old friend index.html
-        js/
-          app.js         # all of your application's code, concatenated
-          lib.js         # all 3rd party library code, concatenated
-        style/
-          app.css        # all of your application's css, concatenated
-          lib.css        # all 3rd party library css, concatenated
-        ...              # a directory per 'package', with all the static files (html, imgs, etc)
-      test/              # all tests
-
 ## Environment Specfic Builds
 
 Under `src/env` is a directory per environment (currently dev and prod, but add as many as you need).  During the build, these directories are overlayed directly on top of the main code, overriding anything that may be there.  By default the build will use the 'dev' environment.
@@ -134,6 +130,10 @@ Having the ability to run custom code in the application module's config and run
 To run an enviroment specific build, add an `env` flag to your command line as follows:
 
     grunt --env prod --config grunt.coffee
+
+## Everything Else
+
+A distribution build minifies your js and css.  Run `grunt --config grunt.coffee dist`
 
 ## TODOs
 
