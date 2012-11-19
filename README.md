@@ -18,10 +18,10 @@ All of the conventions and lessons-learned demonstratred here can be applied to 
     * Allows for a clean seperation between the organization of your source code and that of your served files
     * A minified and concatenated distribution
 * Incorporates most major aspects of AngularJS
-    * Modules, directives, views, services, controllers, filters, dependency injection, etc.
+    * Modules, directives, views, services, controllers, filters, dependency injectin, etc.
     * Automated unit testing with Testacular
 * Demonstrates 3rd party library integration ([jQueryUI](http://jqueryui.com/) and a 'global' library wrapped in a module, in this case [toastr](http://codeseven.github.com/toastr/)).
-# Ability to customize the app for each environment (dev, qa, prod, etc.)
+* Ability to customize the app for each environment (dev, qa, prod, etc.)
 * Opinionated conventions for:
     * naming Modules and Providers
     * sharing services, directives, filters across views
