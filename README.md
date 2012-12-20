@@ -30,7 +30,7 @@ All of the conventions and lessons-learned demonstratred here can be applied to 
 
 ### Initial setup
 
-1. Ensure that you have [node](http://nodejs.org/), [npm](https://npmjs.org/), and [grunt](http://gruntjs.com/) installed and in your path
+1. Ensure that you have [node](http://nodejs.org/), [npm](https://npmjs.org/), [grunt](http://gruntjs.com/), and [coffeescript](http://coffeescript.org/) installed and in your path
 1. Clone this repository
 1. Run `npm install` to pull down all build-time dependencies
 
