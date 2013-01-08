@@ -76,7 +76,7 @@ All of these are demonstrated in the example code.
         config           # testacular configs
         lib              # test-time libraries
         ...              # directory per package, generally with a Spec file per package
-      env/               # environment-specific overrides.  See 'Enviroment Specific Builds'
+      profile/           # environment-specific overrides.  See 'Profiles'
         prod             # overrides for prod env
           ...
         dev              # overrides for dev env, the default
@@ -91,28 +91,30 @@ o
 
 The structure you use for these groupings is up to you, but I've found that the 'xxxView' and 'common' structure has worked very well.
 
-### Modules and 'Providers'
+### Modules and 'Angular Items'
+
+An 'Angular Item' is, for instance, a Vaule, Factor, Directive, Filter, Controller, etc.  There's no good term for these things, unfortunately.
 
  Because we're using dependency injection, we don't need to use any javascript namespacing.  Everything in CoffeeScript is in an anonymous function and so never global, and everything we need we make sure is available in a module.
 
-The key, then, becomes the naming convention we use for both our modules and the 'providers' (eg values, factories, directives, filters).
+The key, then, becomes the naming convention we use for both our modules and the Angular Items.
 
- - We use one module per provider.  We don't group providers together (I don't see the benefit).
+ - We use one module per Angular Item.  We don't group Items together (I don't see the benefit).
  - Module name matches the name and path of the file in which it's defined.  So the module for the app's common Data service would be `common.services.dataSvc`
- - Provider name depends on the type of provider.
-     - For *values* and *factories*, which are generally used to provide Controllers, Services, and wrappers around 3rd parties libs, the *name of my provider is the exact same name as the module*.
+ - Item name depends on the type of the item.
+     - For *values* and *factories*, which are generally used to provide Controllers, Services, and wrappers around 3rd parties libs, the *name of my Item is the exact same name as the module*.
      - For *directives* and *filters*, we do not namespace.  Because they have to be referenced in the DOM, short names are best for directives and filters.  See the code for examples.
 
- Having one module per provider makes wiring easy - We just list all of our modules in `app.coffee`.
+ Having one module per Item makes wiring easy - We just list all of our modules in `app.coffee`.
 
 ### Misc Conventions
 
 * Never use a global function for a controller, always a module
 * Always use the 'array' format for dependency injection
 
-## Environment Specfic Builds
+## Profiles
 
-Under `src/env` is a directory per environment (currently dev and prod, but add as many as you need).  During the build, these directories are overlayed directly on top of the main code, overriding anything that may be there.  By default the build will use the 'dev' environment.
+Under `src/profiles` is a directory per 'profile' (currently dev and prod, but add as many as you need).  During the build, these directories are overlayed directly on top of the main code, overriding anything that may be there.  By default the build will use the 'dev' profile.
 
 ### envProvider
 
@@ -127,9 +129,9 @@ The dev module, however, uses [$httpBackend](http://docs.angularjs.org/api/ngMoc
 
 Having the ability to run custom code in the application module's config and run blocks as well as having an injectable service that abstracts away all environment specific aspects of your application gives you the option to set up your application's enviroments in whatever ways you need.
 
-To run an enviroment specific build, add an `env` flag to your command line as follows:
+To run an enviroment specific build, add an `profile` flag to your command line as follows:
 
-    grunt --env prod --config grunt.coffee
+    grunt --profile prod --config grunt.coffee
 
 ## Everything Else
 

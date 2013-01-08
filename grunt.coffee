@@ -4,23 +4,7 @@ module.exports = (grunt)->
    # Constants
    ###############################################################
 
-   ENV = grunt.option('env') || 'dev'
-
-   # # Application src
-   # SRC_ROOT= 'src/main/'
-   # SRC_APP_ROOT= "#{SRC_ROOT}/app/"
-
-   # SRC_INDEX = "#{SRC_ROOT}/index.html"
-   # SRC_HTML = "#{SRC_APP_ROOT}/**/*.html"
-   # SRC_CSS = "#{SRC_APP_ROOT}/**/*.css"
-   # SRC_IMG = "#{SRC_APP_ROOT}/**/*.jpg" # TODO jpgs are not the only images..
-   # SRC_COFFEE= "#{SRC_APP_ROOT}/**/*.coffee"
-
-   # # 3rd party libraries
-   # SRC_LIB_ROOT = "#{SRC_ROOT}/lib/"
-   # SRC_LIB_CSS = "#{SRC_LIB_ROOT}/**/*.css"
-   # SRC_LIB_JS = "#{SRC_LIB_ROOT}/**/*.js"
-   # TEST_COFFEE = "TODO"
+   PROFILE = grunt.option('profile') || 'dev'
 
    ###############################################################
    # Config
@@ -33,20 +17,20 @@ module.exports = (grunt)->
 
       copy:
 
-         # Copy all non-env to the stage dir.  Stage dir allows us to override
-         # non-env-specific code w/ the env defined on the cmd line (or 'dev' by default)
+         # Copy all non-profile to the stage dir.  Stage dir allows us to override
+         # non-profile-specific code w/ the profile defined on the cmd line (or 'dev' by default)
          stage:
             options:
                basePath: 'src/main'
             files:
                'target/stage/': 'src/main/**'
 
-         # override staging dir w/ env-specific files
-         env:
+         # override staging dir w/ profile-specific files
+         profiles:
             options:
-               basePath: "src/env/#{ENV}/"
+               basePath: "src/profiles/#{PROFILE}/"
             files:
-               'target/stage/': "src/env/#{ENV}/**"
+               'target/stage/': "src/profiles/#{PROFILE}/**"
 
          # copies all files to the build dir that do not need any further processing
          static:
