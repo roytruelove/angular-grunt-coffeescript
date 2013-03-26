@@ -13,18 +13,18 @@ All of the conventions and lessons-learned demonstratred here can be applied to 
 ## Features
 
 * Pure [CoffeeScript](http://coffeescript.org/)
+* Leverages [bootstrap](http://twitter.github.com/bootstrap/index.html)
 * [Grunt](http://gruntjs.com)-based build script that:
     * Starts a server and immediately deploys changes as you code
     * Allows for a clean seperation between the organization of your source code and that of your served files
     * A minified and concatenated distribution
 * Incorporates most major aspects of AngularJS
-    * Modules, directives, views, services, controllers, filters, dependency injectin, etc.
-    * Automated unit testing with Testacular
-* Demonstrates 3rd party library integration ([jQueryUI](http://jqueryui.com/) and a 'global' library wrapped in a module, in this case [toastr](http://codeseven.github.com/toastr/)).
+    * Modules, directives, views, services, controllers, filters, dependency injection, etc.
+* Demonstrates 3rd party library integration using a 'global' library wrapped in a module, in this case [toastr](http://codeseven.github.com/toastr/)).
 * Ability to customize the app for each environment (dev, qa, prod, etc.)
 * Opinionated conventions for:
-    * naming Modules and Providers
-    * sharing services, directives, filters across views
+    * naming Modules and Angular 'Items'
+    * sharing services, directives, filters, etc across views
 
 ## Building and Running
 
@@ -82,18 +82,16 @@ All of these are demonstrated in the example code.
         dev              # overrides for dev env, the default
           ...
 
-#### Packages
+Related files are grouped together. Best explained by example:
 
-A 'package' is a loose term I'm using for a grouping of related artifacts.  Best explained by example:
-o
 * All files for the app's 'details view' will go into the detailsView directory.  None of the files in this directory will be used outside of this view
 * 'Common' code that's shared between views are grouped under the 'common' directory
 
-The structure you use for these groupings is up to you, but I've found that the 'xxxView' and 'common' structure has worked very well.
+The structure you use for these groupings is up to you, but I've found that the 'xxxView' and 'common' structure works well.
 
 ### Modules and 'Angular Items'
 
-An 'Angular Item' is, for instance, a Vaule, Factor, Directive, Filter, Controller, etc.  There's no good term for these things, unfortunately.
+An 'Angular Item' is, for instance, a Vaule, Factory, Directive, Filter, Controller, etc.  There's no good term for these things, unfortunately.
 
  Because we're using dependency injection, we don't need to use any javascript namespacing.  Everything in CoffeeScript is in an anonymous function and so never global, and everything we need we make sure is available in a module.
 
@@ -110,7 +108,7 @@ The key, then, becomes the naming convention we use for both our modules and the
 ### Misc Conventions
 
 * Never use a global function for a controller, always a module
-* Always use the 'array' format for dependency injection
+* Always use the 'array' format for dependency injection to avoid minification issues
 
 ## Profiles
 
@@ -136,13 +134,6 @@ To run an enviroment specific build, add an `profile` flag to your command line 
 ## Everything Else
 
 A distribution build minifies your js and css.  Run `grunt --config grunt.coffee dist`
-
-## TODOs
-
- - End-to-end test and further test coverage
- - Travis DI integration
- - Create a grunt init template
- - Generic error handling for http errors
 
 ## Thanks
 

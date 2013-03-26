@@ -1,6 +1,33 @@
-<ul>
-	<li glow-green-on-mouseover><strong>Id: </strong>{{who.id}}</li>
-	<li glow-green-on-mouseover><strong>First Name: </strong>{{who.firstName}}</li>
-	<li glow-green-on-mouseover><strong>Last Name: </strong>{{who.lastName}}</li>
-	<li glow-green-on-mouseover><strong>username: </strong>{{who.firstName + "." + who.lastName | toLower }}</li>
-</ul>
+<div class="row">
+	<div class="span2">
+		<label>Id</label>
+	</div>
+	<div class="span2">
+		<input disabled type="text" value="{{who.id}}"></input>
+	</div>
+</div>
+<div class="row">
+	<div class="span2">
+		<label>First Name</label>
+	</div>
+	<div class="span2">
+		<input disabled type="text" value="{{who.firstName}}"></input>
+	</div>
+</div>
+<div class="row">
+	<div class="span2">
+		<label>Last Name</label>
+	</div>
+	<div class="span2">
+		<input disabled type="text" value="{{who.lastName}}"></input>
+	</div>
+</div>
+<div class="row">
+	<div class="span2">
+		<label>Username</label>
+	</div>
+	<div class="span2">
+		<!-- note use of custom filter 'toLower' -->
+		<input disabled type="text" value='{{who.firstName + "." + who.lastName | toLower }}'></input>
+	</div>
+</div>

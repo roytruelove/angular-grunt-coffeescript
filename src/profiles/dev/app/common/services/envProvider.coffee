@@ -9,9 +9,10 @@ class Environment
 	env: 'DEV'
 	serverUrl: '' # blank because all $http calls will be faked
 
-	constructor: (@$httpBackend, @hardcodedData)->
+	constructor: (@$httpBackend, @$log, @hardcodedData)->
 
 	appRun: ()->
+		@$log.log ("Running custom 'run'-time initialization of the main app module")
 		@hardcodedData.addHardcodedData(@$httpBackend)
 
 class EnvironmentProvider
@@ -19,13 +20,15 @@ class EnvironmentProvider
 	$get: 
 		[
 			'$httpBackend'
+			'$log'
 			'common.services.harcodedDataSvc'
-			($httpBackend, hardcodedData)->
-				new Environment($httpBackend, hardcodedData)
+			($httpBackend, $log, hardcodedData)->
+				new Environment($httpBackend, $log, hardcodedData)
 		]
 
 	appConfig: ()->
-		# no config-level changes
+		# using console because there's no 'log' object yet
+		console.log("Running custom 'config'-time initialization of the main app module")
 
 # note that we have to include the module names of our dependencies here since the main app
 # modules won't know about them
