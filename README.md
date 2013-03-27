@@ -38,7 +38,7 @@ All of the conventions and lessons-learned demonstratred here can be applied to 
 
 The default grunt task will start the server and watch for changes.  When changes are made the project is rebuilt, pushed to the server, and all unit tests are run through Testacular.
 
-* To run the default grunt task, run `grunt --config grunt.coffee`
+* To run the default grunt task, run `grunt`
 * Point the browser to `http://localhost:9876` to connect the Testacular server
 * Point another browser window to `http://localhost:8000` to view the app
 
@@ -129,11 +129,11 @@ Having the ability to run custom code in the application module's config and run
 
 To run an enviroment specific build, add an `profile` flag to your command line as follows:
 
-    grunt --profile prod --config grunt.coffee
+    grunt --profile prod 
 
 ## Everything Else
 
-A distribution build minifies your js and css.  Run `grunt --config grunt.coffee dist`
+A distribution build minifies your js and css.  Run `grunt dist`
 
 ## Thanks
 
