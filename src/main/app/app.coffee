@@ -3,6 +3,8 @@
 ### ###########################################################################
 
 mods = [
+  
+  'ngRoute'
 
   'common.directives.glowGreenOnMouseoverDirective'
   'common.directives.uiTooltipDirective'
