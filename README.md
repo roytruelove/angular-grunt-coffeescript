@@ -1,3 +1,5 @@
+_Note - this project is deprecated, please use yeoman_
+
 # angular-grunt-coffeescript
 # A Seed project for large CoffeeScript AngularJS projects
 
